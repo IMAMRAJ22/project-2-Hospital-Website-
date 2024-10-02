@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fontawesome.com/icons/arrow-left?f=classic&s=solid">
+    {% load static %}
+</head>
+<body>
+    {% csrf_token %}
+    {% if messages %}
+    {% for i in messages %}
+    <div class="alert alert-warning">
+     {{i}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <h1 style="text-align: center; color: rgb(189, 72, 232);">Patient Details</h1>
+    <i class="fa-solid fa-arrow-left"><a href="{% url 'index' %}"><button type="button" class="btn btn-danger " style="margin-left: 20px; margin-bottom: 2px;">Go Back</button></a></i>
+            
+            <div class="mt-2">
+                <table class="table table-bordered" style="text-align: center; margin-top: 20px; width: 30px;">
+                  <table class="table table-bordered">
+                    <thead class="table-dark">
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Dc Name</th>
+                        <th scope="col">Pat Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Problem</th>
+                        <th scope="col">Delete</th>
+                      </tr>
+                    </thead>
+                    {% for i in particular_pa %}
+                    <tbody>
+                      <tr>
+                        <td>{{i.id}}</td>
+                        <td>{{i.dc_name}}</td>
+                        <td>{{i.patname}}</td>
+                        <td>{{i.age}}</td>
+                        <td>{{i.date}}</td>
+                        <td>{{i.problem}}</td>
+                        <td>
+                          <form action="{% url 'deletedata' i.id %}" method="post" class="d-inline">{% csrf_token %}
+                            <input type="submit" class="btn btn-danger" value="Delete">
+                          </form>
+                        </td>
+                      </tr>
+                    </tbody>
+                    {% endfor %}
+                  </table>
+            </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
